@@ -1,0 +1,30 @@
+kind: pipeline
+type: kubernetes
+name: production
+
+trigger:
+  branch:
+  - master
+
+metadata:
+  namespace: drone
+
+steps:
+- name: docker
+  image: plugins/docker
+  environment:
+    REGISTRY_HOSTNAME:
+      from_secret: registry_hostname
+  settings:
+    mtu: 1376
+    registry:
+      from_secret: registry_hostname
+    username:
+      from_secret: registry_username
+    password:
+      from_secret: registry_password
+    dockerfile: Dockerfile
+    repo: ${REGISTRY_HOSTNAME}/drone-kubectl
+    tags: latest
+    create_repository: true
+    use_cache: true

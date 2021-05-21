@@ -24,7 +24,7 @@ steps:
     password:
       from_secret: registry_password
     dockerfile: Dockerfile
-    repo: ${REGISTRY_HOSTNAME}/drone-kubectl
+    repo: $${REGISTRY_HOSTNAME}/drone-kubectl
     tags: latest
     create_repository: true
     use_cache: true
